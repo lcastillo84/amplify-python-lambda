@@ -29,14 +29,15 @@ export class PythonLambdaConstruct extends Construct {
 					local: {
 						tryBundle(outputDir: string) {
 							try {
-								execSync('pip --version');
+								execSync('poetry --version');
 							} catch {
 								return false;
 							}
 
 							const commands = [
 								`cd ${sourceDirectory}`,
-								`pip install -r requirements.txt -t ${outputDir}`,
+								`poetry export -f requirements.txt --output ${outputDir}/requirements.txt --without-hashes --without dev`,
+								`pip install -r ${outputDir}/requirements.txt -t ${outputDir}`,
 								`cp -a . ${outputDir}`,
 							];
 

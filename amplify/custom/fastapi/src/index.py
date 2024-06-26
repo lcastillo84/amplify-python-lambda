@@ -1,6 +1,4 @@
-import requests
+from mangum import Mangum
+from main import app
 
-def handler(event, context):
-    print(event)
-    print(context)
-    return {"event": event}
+handler = Mangum(app, lifespan="off")
