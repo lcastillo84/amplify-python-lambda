@@ -3,30 +3,21 @@ import { Construct } from 'constructs';
 import { execSync } from 'child_process';
 import { Duration } from 'aws-cdk-lib';
 
-const DEFAULT_LAMBDA_TIMEOUT = 30;
-const DEFAULT_LAMBDA_MEMORY_SIZE = 256;
+const DEFAULT_LAMBDA_TIMEOUT = 5;
+const DEFAULT_LAMBDA_MEMORY_SIZE = 128;
 
 type PythonLambdaConstructProps = {
 	functionName: string;
 	handler: string;
 	runtime: lambda.Runtime;
 	sourceDirectory: string;
-	memorySize?: 128 | 256 | 512 | 1024 | 2048;
-	timeoutSeconds?: 1 | 30 | 60 | 120;
 };
 
 export class PythonLambdaConstruct extends Construct {
 	public readonly lambdaFunction: lambda.Function;
 	constructor(scope: Construct, id: string, props: PythonLambdaConstructProps) {
 		super(scope, id);
-		const {
-			functionName,
-			runtime,
-			sourceDirectory,
-			handler,
-			memorySize,
-			timeoutSeconds,
-		} = props;
+		const { functionName, runtime, sourceDirectory, handler } = props;
 
 		this.lambdaFunction = new lambda.Function(scope, functionName, {
 			runtime: runtime,
@@ -55,8 +46,8 @@ export class PythonLambdaConstruct extends Construct {
 					},
 				},
 			}),
-			memorySize: memorySize || DEFAULT_LAMBDA_MEMORY_SIZE,
-			timeout: Duration.seconds(timeoutSeconds || DEFAULT_LAMBDA_TIMEOUT),
+			memorySize: DEFAULT_LAMBDA_MEMORY_SIZE,
+			timeout: Duration.seconds(DEFAULT_LAMBDA_TIMEOUT),
 		});
 	}
 }
