@@ -1,5 +1,5 @@
 import { defineBackend } from '@aws-amplify/backend';
-import { PythonLambdaConstruct } from './custom/resource';
+import { PythonLambdaConstruct } from './custom/fastapi/resource';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 
 const backend = defineBackend({});
@@ -10,7 +10,7 @@ const pythonLambda = new PythonLambdaConstruct(
 	{
 		functionName: 'MyLambdaFunction',
 		runtime: lambda.Runtime.PYTHON_3_12,
-		sourceDirectory: 'amplify/custom/src',
+		sourceDirectory: 'amplify/custom/fastapi/src',
 		handler: 'index.handler',
 	}
 );
