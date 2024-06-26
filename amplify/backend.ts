@@ -9,7 +9,7 @@ const pythonLambda = new PythonLambdaConstruct(
 	'MyLambda',
 	{
 		functionName: 'MyLambdaFunction',
-		runtime: lambda.Runtime.PYTHON_3_8,
+		runtime: lambda.Runtime.PYTHON_3_12,
 		sourceDirectory: 'amplify/custom/src',
 		handler: 'index.handler',
 	}
